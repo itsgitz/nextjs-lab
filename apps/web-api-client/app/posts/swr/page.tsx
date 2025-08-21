@@ -23,7 +23,8 @@ export default function PostSWR() {
     };
 
     mutate("/posts", [...posts, newPost], false);
-    await createPost({ title, body: "This is a new post" });
+    const created = await createPost({ title, body: "This is a new post" });
+    console.log("Created post", created);
 
     //
     // revalidate from server
