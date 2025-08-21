@@ -98,7 +98,7 @@ export default function PostSWR() {
             key={post.id}
             className="flex justify-between items-center border p-2 rounded"
           >
-            <strong>{post.title}</strong>
+            {post.title}
             <button
               onClick={() => handleDelete(post.id)}
               disabled={loadingId === post.id}

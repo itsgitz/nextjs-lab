@@ -18,8 +18,11 @@ export default function Home() {
         </h1>
       </div>
       <ul>
-        <li>
+        <li className="mb-2 text-blue-400">
           <Link href={`/posts/swr`}>Posts (Axios + SWR)</Link>
+        </li>
+        <li className="mb-2 text-blue-400">
+          <Link href={`/posts/ssr`}>Posts (SSR in App Router)</Link>
         </li>
       </ul>
     </div>
