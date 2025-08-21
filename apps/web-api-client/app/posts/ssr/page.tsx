@@ -11,7 +11,10 @@ export default async function PostSSR() {
       </div>
       <ul className="space-y-2">
         {posts.slice(0, 10).map((post: any) => (
-          <li className="flex justify-between items-center border p-2 rounded">
+          <li
+            key={post.id}
+            className="flex justify-between items-center border p-2 rounded"
+          >
             {post.title}
           </li>
         ))}
