@@ -1,17 +1,45 @@
+"use client";
+import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  const { data: session, error, isPending } = authClient.useSession();
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  const handleSignout = async () => {
+    await authClient.signOut();
+    redirect("/signin");
+  };
+
+  console.log("Session on the client side", session);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
+        <div className="mb-4">
+          {isPending ? (
+            <div className="text-white">Loading ...</div>
+          ) : (
+            <div>
+              <p className="text-3xl text-white mb-3">
+                You are logged in as {session?.user.name}
+              </p>
+              <p>
+                <a
+                  href="#"
+                  className="bg-zinc-300 px-3 py-1 rounded"
+                  onClick={handleSignout}
+                >
+                  Sign out
+                </a>
+              </p>
+            </div>
+          )}
+        </div>
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             To get started, edit the page.tsx file.
