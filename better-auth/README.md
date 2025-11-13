@@ -1,17 +1,17 @@
 # Better Auth Next.js Lab
 
-This repository serves as a Next.js laboratory for experimenting with the `better-auth` authentication library. It demonstrates a basic implementation of user authentication flows, including sign-up and sign-in, within a Next.js application.
+This repository serves as a Next.js laboratory for experimenting with the [`better-auth`](https://www.better-auth.com/) authentication library. It demonstrates a basic implementation of user authentication flows, including sign-up and sign-in, within a Next.js application.
 
 ## Features
 
-*   **Next.js Framework:** Leverages the latest features of Next.js for a robust and scalable web application.
-*   **Better Auth Integration:** Implements authentication using the `better-auth` library.
-*   **User Authentication:** Provides sign-up and sign-in functionalities.
-*   **Database:** Uses `better-sqlite3` for local data storage.
-*   **Form Management:** Utilizes `react-hook-form` for efficient form handling and validation.
-*   **Schema Validation:** Employs `zod` for robust data validation.
-*   **Styling:** Styled with `tailwindcss` for a modern and responsive UI.
-*   **Custom Auth API:** Includes a custom API route for authentication handling.
+- **Next.js Framework:** Leverages the latest features of Next.js for a robust and scalable web application.
+- **Better Auth Integration:** Implements authentication using the `better-auth` library.
+- **User Authentication:** Provides sign-up and sign-in functionalities.
+- **Database:** Uses `better-sqlite3` for local data storage.
+- **Form Management:** Utilizes `react-hook-form` for efficient form handling and validation.
+- **Schema Validation:** Employs `zod` for robust data validation.
+- **Styling:** Styled with `tailwindcss` for a modern and responsive UI.
+- **Custom Auth API:** Includes a custom API route for authentication handling.
 
 ## Getting Started
 
@@ -19,32 +19,37 @@ To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
 
-*   Node.js (v18 or later)
-*   bun (or npm/yarn)
+- Node.js (v18 or later)
+- bun (or npm/yarn)
 
 ### Installation
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/itsgitz/nextjs-lab.git
-    cd nextjs-lab/better-auth
-    ```
-2.  Install dependencies:
-    ```bash
-    bun install
-    # or npm install
-    # or yarn install
-    ```
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/itsgitz/nextjs-lab.git
+   cd nextjs-lab/better-auth
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   bun install
+   # or npm install
+   # or yarn install
+   ```
 
 ### Running the Development Server
 
-1.  Start the development server:
-    ```bash
-    bun run dev
-    # or npm run dev
-    # or yarn dev
-    ```
-2.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Start the development server:
+
+   ```bash
+   bun run dev
+   # or npm run dev
+   # or yarn dev
+   ```
+
+2. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
@@ -85,7 +90,9 @@ better-auth/
 
 To learn more about Next.js, take a look at the following resources:
 
-*   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-*   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Better Auth - Next.js Integrration](https://www.better-auth.com/docs/integrations/next)
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
