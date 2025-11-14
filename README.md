@@ -7,3 +7,4 @@ For example, to run the `better-auth` lab:
 ## Current Labs
 
 - [Better Auth](./better-auth) A Next.js application demonstrating an improved authentication flow with [Better Auth](https://www.better-auth.com/).
+- [Daisy UI](./daisy-ui) A Next.js application demonstrating the integration of Daisy UI components.
