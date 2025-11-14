@@ -1,54 +1,13 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { signInSchema } from "@/lib/types/schema/sign-in";
-import Form from "next/form";
+import { SignIn, signInSchema } from "@/lib/types/schema/sign-in";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
-import { useActionState } from "react";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
-
-type SignInState = {
-  error?: string;
-};
-
-const handleLogin = async (
-  state: SignInState,
-  formData: FormData,
-): Promise<SignInState> => {
-  "use client";
-
-  const rawData = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
-
-  // const validated = signInSchema.safeParse(rawData)
-  // if (!validated.success) {
-  //   return {
-  //     error:
-  //   }
-  // }
-
-  try {
-    const response = await authClient.signIn.email({
-      email: rawData.email,
-      password: rawData.password,
-    });
-
-    if (response.error) {
-      return { error: response.error.message };
-    }
-
-    console.log("Login response", response);
-
-    return {};
-  } catch (error) {
-    console.error(error);
-
-    return { error: "Login failed. Please try again." };
-  }
-};
+import { useForm } from "react-hook-form";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -63,24 +22,64 @@ function SubmitButton() {
   );
 }
 
-export default function SignIn() {
+export default function SignInPage() {
+  const router = useRouter();
   const { data: session } = authClient.useSession();
-  const [state, formAction, isPending] = useActionState(handleLogin, {});
+  // const [state, formAction, isPending] = useActionState(handleLogin, {});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignIn>({ resolver: zodResolver(signInSchema) });
+  const [serverError, setServerError] = useState<string | null>(null);
 
   console.log("Session on login page", session);
+  // console.log("State", state);
 
   if (session) {
     redirect("/");
   }
 
+  const handleLogin = async (data: SignIn) => {
+    setServerError(null);
+
+    try {
+      const response = await authClient.signIn.email({
+        email: data.email,
+        password: data.password,
+      });
+
+      if (response.error) {
+        console.error("Sign in error:", response.error.message);
+        setServerError(
+          response.error.message ??
+            "Incorrect email or password. Please try again.",
+        );
+      }
+
+      console.log("Login successful", response);
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+
+      setServerError("An unexpected error occured. Please try again.");
+    }
+  };
+
   return (
     <>
       <div className="pt-12">
-        <Form
-          action={formAction}
+        <form
+          onSubmit={handleSubmit(handleLogin)}
           className="max-w-sm mx-auto p-6 bg-white rounded-lg shadow-md"
         >
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Sign in</h2>
+
+          {serverError && (
+            <div className="mb-4">
+              <span className="text-red-500">{serverError}</span>
+            </div>
+          )}
 
           <div className="mb-4">
             <label
@@ -93,9 +92,12 @@ export default function SignIn() {
               id="email"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               type="text"
-              name="email"
               placeholder="you@example.com"
+              {...register("email")}
             />
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
           </div>
           <div className="mb-4">
             <label
@@ -108,18 +110,21 @@ export default function SignIn() {
               id="password"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               type="password"
-              name="password"
               placeholder="********"
+              {...register("password")}
             />
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
           </div>
           <SubmitButton />
           <div className="mt-4">
             Don&apos;t have an account?{" "}
             <Link href={"/signup"} className="text-zinc-800 underline">
-              Sign up now
+              Sign up
             </Link>{" "}
           </div>
-        </Form>
+        </form>
       </div>
     </>
   );

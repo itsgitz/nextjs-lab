@@ -38,7 +38,6 @@ export async function createSignUp(state: SignUpState, formData: FormData) {
         password,
         name,
       },
-      asResponse: true,
     });
     console.log("response", response);
     redirect("/");

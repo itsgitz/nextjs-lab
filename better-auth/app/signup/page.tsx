@@ -4,13 +4,14 @@ import Form from "next/form";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { createSignUp, type SignUpState } from "./actions";
+import Link from "next/link";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <button
       type="submit"
-      className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200"
+      className="w-full bg-zinc-800 text-white font-bold py-2 px-4 rounded-lg hover:bg-zinc-700 transition duration-200"
       disabled={pending}
     >
       {pending ? "Signing up ..." : "Submit"}
@@ -88,6 +89,13 @@ export default function SignUp() {
           )}
         </div>
         <SubmitButton />
+
+        <div className="mt-4">
+          Have an account?{" "}
+          <Link href={"/signin"} className="text-zinc-800 underline">
+            Sign in
+          </Link>{" "}
+        </div>
       </Form>
     </div>
   );
